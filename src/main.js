@@ -3,7 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import {Button,Row,Col,Search,Swipe,SwipeItem,Lazyload,Tabbar,TabbarItem,Tab,Tabs } from 'vant'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
 
+Vue.use(Button).use(Row).use(Col).use(Search).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper)
+.use(Tabbar).use(TabbarItem).use(Tab).use(Tabs)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

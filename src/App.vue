@@ -16,5 +16,7 @@ export default {
 </script>
 
 <style>
-
+  #app{
+    margin-bottom: 50px;
+  }
 </style>

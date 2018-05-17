@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="tab-bar">
-            <van-tabbar v-model="active">
+            <van-tabbar v-model="active" >
                 <van-tabbar-item icon="mall" to="/">
                     <span>商城</span>
                     <template slot="icon" slot-scope="props">
@@ -14,13 +14,13 @@
                         <img :src="props.active ? icon1.active:icon1.normal" />
                     </template>
                 </van-tabbar-item>
-                <van-tabbar-item icon="cart">
+                <van-tabbar-item icon="cart" to="/cart">
                     <span>购物车</span>
                     <template slot="icon" slot-scope="props">
                         <img :src="props.active ? icon2.active:icon2.normal" />
                     </template>
                 </van-tabbar-item>
-                <van-tabbar-item icon="vip">
+                <van-tabbar-item icon="vip" to="/vip">
                     <span>会员中心</span>
                     <template slot="icon" slot-scope="props">
                         <img :src="props.active ? icon3.active:icon3.normal" />
@@ -54,6 +54,26 @@
                 },
             }
         },
+        mounted(){
+            let name = this.$route.name;
+            switch (name) {
+                case 'ShoppingMall':
+                    this.active = 0;
+                    break;
+                case 'Classify':
+                    this.active = 1;
+                    break;
+                case 'Cart':
+                    this.active = 2;
+                    break;
+                case 'Vip':
+                    this.active = 3;
+                    break;
+                default:
+                    this.active = 0;
+                    break;
+            }
+        }
     }
 </script>
 
@@ -61,7 +81,7 @@
     .van-tabbar-item--active {
         color: #e5017d;
     }
-    .van-tabbar--fixed {
+    .tab-bar {
         left: 0;
         bottom: 0;
         position: fixed;

@@ -10,8 +10,13 @@
                     <div class="content">
                         <van-col span="5" class="content-left">
                             <ul>
-                                <li class="active">全部</li>
-                                <li v-for="(list,index) in item.bxMallSubDto" :key="index">{{list.mallSubName}}</li>
+                                <li :class="{choosed:isChoosed == -1}" @click="chooseSubName(-1)">全部</li>
+                                <li v-for="(list,index) in item.bxMallSubDto" 
+                                    :key="index" 
+                                    @click="chooseSubName(index)" 
+                                    v-bind:class="{choosed:isChoosed == index}">
+                                    {{list.mallSubName}}
+                                </li>
                             </ul>
                         </van-col>
                         <van-col span="19" class="content-body">
@@ -44,7 +49,8 @@
                 isPriceHigh: false,
                 allProducts: [],
                 loading: false,
-                finished: false
+                finished: false,
+                isChoosed: -1
             }
         },
         created(){
@@ -57,6 +63,8 @@
                     this.category = res.data.data.category
                     this.allProducts = res.data.data.hotGoods
                 }
+            }).catch(err => {
+                console.log(err)
             })
         },
         methods: {
@@ -65,6 +73,16 @@
                 setTimeout(() => {
                     this.disabled = false;
                 }, 200);
+            },
+            chooseSubName(index){
+                this.isChoosed = index;
+                let len = 5 + parseInt(index);
+                axios.get('https://www.easy-mock.com/mock/5af4fa55b0e405417e9317fd/prettyVue/productlist')
+                    .then(res => {
+                        if(res.status === 200){
+                            this.allProducts = index > -1?res.data.data.hotGoods.splice(0,len):res.data.data.hotGoods
+                        }
+                    })
             }
         }
     }
@@ -114,7 +132,7 @@
     .content-body .van-cell:nth-child(even){
         margin-left: 2%;
     }
-    .active{
+    .choosed{
         background: #ddd;
     }
     .product-name{

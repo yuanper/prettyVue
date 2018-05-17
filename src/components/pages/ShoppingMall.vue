@@ -35,12 +35,23 @@
         <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
         <floorComponent :floorData="floor2" :floorTitle="floorName.floor2"></floorComponent>
         <floorComponent :floorData="floor3" :floorTitle="floorName.floor3"></floorComponent> 
+        <div class="hot-area">
+            <div class="hot-title">热卖商品</div>
+            <div class="hot-goods">
+                <van-row gutter="20">
+                    <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
+                        <goods-info :goodsImage="item.image" :goodsName="item.name" :goodsmallPrice="item.mallPrice.toFixed(2)" :goodsPrice="item.price.toFixed(2)"></goods-info>
+                    </van-col>
+                </van-row>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
     import floorComponent from '../component/floorComponent'
+    import goodsInfo from '../component/goodsInfoComponent'
     export default {
         data(){
             return {
@@ -53,10 +64,11 @@
                 floor1: [],
                 floor2: [],
                 floor3: [],
-                floorName: {}
+                floorName: {},
+                hotGoods: []
             }
         },
-        components:{floorComponent},
+        components:{floorComponent,goodsInfo},
         created(){
             axios({
                 url: ' https://www.easy-mock.com/mock/5af4fa55b0e405417e9317fd/prettyVue/productlist',
@@ -72,6 +84,7 @@
                     this.floor1 = res.data.data.floor1
                     this.floor2 = res.data.data.floor2
                     this.floor3 = res.data.data.floor3
+                    this.hotGoods = res.data.data.hotGoods   
                 }
             }).catch(err => {
                 console.log(err)
@@ -129,5 +142,18 @@
         border-right: 1px solid #eee;
         font-size: 12px;
         text-align: center;
+    }
+    .hot-title{
+        width: 19rem;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+        background: #eee;
+        margin: 0.5rem auto 0;
+        font-size: 14px;
+        color: #ff9224;
+    }
+    .hot-goods{
+        padding: 10px;
     }
 </style>

@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <Header></Header>
         <div class="swiper-area">
             <van-swipe :autoplay="3000">
                 <van-swipe-item v-for="(banner,index) in bannerPic" :key="index">
@@ -32,9 +33,9 @@
                 </swiper>
             </div>
         </div>
-        <floorComponent :floorData="floor1" :floorTitle="floorName.floor1"></floorComponent>
-        <floorComponent :floorData="floor2" :floorTitle="floorName.floor2"></floorComponent>
-        <floorComponent :floorData="floor3" :floorTitle="floorName.floor3"></floorComponent> 
+        <FloorComponent :floorData="floor1" :floorTitle="floorName.floor1"></FloorComponent>
+        <FloorComponent :floorData="floor2" :floorTitle="floorName.floor2"></FloorComponent>
+        <FloorComponent :floorData="floor3" :floorTitle="floorName.floor3"></FloorComponent> 
         <div class="hot-area">
             <div class="hot-title">热卖商品</div>
             <div class="hot-goods">
@@ -45,13 +46,16 @@
                 </van-row>
             </div>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
-    import floorComponent from '../component/floorComponent'
-    import goodsInfo from '../component/goodsInfoComponent'
+    import Header from '../component/header'    
+    import Footer from '../component/footer'    
+    import FloorComponent from '../component/floorComponent'
+    import GoodsInfo from '../component/goodsInfoComponent'
     export default {
         data(){
             return {
@@ -68,7 +72,7 @@
                 hotGoods: []
             }
         },
-        components:{floorComponent,goodsInfo},
+        components:{Header,FloorComponent,GoodsInfo,Footer},
         created(){
             axios({
                 url: ' https://www.easy-mock.com/mock/5af4fa55b0e405417e9317fd/prettyVue/productlist',

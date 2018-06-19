@@ -46,11 +46,14 @@
                 </van-list>
             </div>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import Footer from '../component/footer'    
+    
     export default {
         data() {
             return {
@@ -77,7 +80,8 @@
             clickBack(){
 
             }
-        }
+        },
+        components: {Footer}
     }
 </script>
 

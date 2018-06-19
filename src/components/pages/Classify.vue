@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Header></Header>
         <div class="tabs">
             <van-tabs v-model="active" :swipe-threshold="5" swipeable>
                 <van-tab v-for="(item,index) in category" :title="item.mallCategoryName" :key="index">
@@ -35,11 +36,14 @@
                 </van-tab>
             </van-tabs>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import Header from '../component/header'    
+    import Footer from '../component/footer'    
     export default {
         data() {
             return {
@@ -84,7 +88,8 @@
                         }
                     })
             }
-        }
+        },
+        components: {Header,Footer}
     }
 </script>
 

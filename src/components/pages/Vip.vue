@@ -1,5 +1,23 @@
 <template>
     <div class="vip">
+        <div class="vip-info">
+            <van-row gutter="10">
+                <van-col span="6">
+                    <div class="head-image"><img :src="head"/></div>
+                    <div class="vip-name">普通</div>
+                </van-col>
+                <van-col span="10">
+                    <div class="points">我的福豆:29</div>
+                    <div class="sign-day"></div>
+                </van-col>
+                <van-col span="8">
+                    <div class="sign">
+                        <span>连续<br>签到</span>
+                        <span>1天</span>
+                    </div>
+                </van-col>
+            </van-row>
+        </div>
         <div class="vip-order">
             <div class="my-order">我的订单</div>
             <div class="all-order">查看全部订单</div>
@@ -82,7 +100,7 @@
                     <div class="arrow-right">></div>
                 </div>
             </div>
-            <div class="list">
+            <div class="list" @click="loginOutClick">
                 <div class="list-img">
                     <img :src="loginOut" width="100%"/>
                 </div>
@@ -92,10 +110,14 @@
                 </div>
             </div>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
+    import {Dialog} from 'vant'
+    import Footer from '../component/footer'    
+    
     export default {
         data() {
             return {
@@ -107,8 +129,25 @@
                 address: require('./../../assets/images/address.png'),
                 editPsd: require('./../../assets/images/edit-psd.png'),
                 loginOut: require('./../../assets/images/Login-out.png'),
+                head: require('./../../assets/images/head.png'),
             }
         },
+        mounted(){
+            
+        },
+        methods: {
+            loginOutClick(){
+                Dialog.confirm({
+                    title: '退出登录',
+                    message: '是否确定退出登录？'
+                }).then(() => {
+                    this.$router.push('/login')
+                }).catch(() => {
+
+                })
+            }
+        },
+        components: {Footer}
     }
 </script>
 
@@ -116,6 +155,34 @@
     .vip{
         font-size: 14px;
         color: #666;
+    }
+    .vip-info {
+        height: 5rem;
+        background: #e5017d;
+        color: #fff;
+    }
+    .head-image {
+        width: 3rem;
+        height: 3rem;
+        margin: 5px auto;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        background: #fff;
+    }
+    .head-image img{
+        width: 2rem;
+        height: 2rem;
+        margin: 0.5rem
+    }
+    .vip-name {
+        width: 3.5rem;
+        height: 1rem;
+        text-align: center;
+        background: #ff0000;
+        border: 1px solid #f30505;
+        border-radius: 1rem;
+        margin: 0 auto;
+        box-shadow:0 0 0 #ff0000 inset;
     }
     .vip-order{
         height: 2rem;
@@ -148,6 +215,9 @@
     .manager-list .list{
         height: 3rem;
         line-height: 3rem;
+    }
+    .list:active{
+        background: #ddd;
     }
     .list .list-img{
         display: inline-block;

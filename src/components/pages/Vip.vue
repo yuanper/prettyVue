@@ -48,17 +48,19 @@
                     <img :src="discount" width="100%"/>
                 </div>
                 <div class="list-right">
-                    <span>优惠券</span>
-                    <div class="arrow-right">></div>
+                    <van-cell-group>
+                        <van-cell title="优惠券" is-link to="/coupon"/>
+                    </van-cell-group>
                 </div>
             </div>
-            <div class="list">
+            <div class="list" @click="dialogShow = true">
                 <div class="list-img">
                     <img :src="phone" width="100%"/>
                 </div>
                 <div class="list-right">
-                    <span>客服电话</span>
-                    <div class="arrow-right">></div>
+                    <van-cell-group>
+                        <van-cell title="客服电话" is-link />
+                    </van-cell-group>
                 </div>
             </div>
             <div class="list">
@@ -66,8 +68,9 @@
                     <img :src="fare" width="100%"/>
                 </div>
                 <div class="list-right">
-                    <span>福利包包</span>
-                    <div class="arrow-right">></div>
+                    <van-cell-group>
+                        <van-cell title="福利包包" is-link />
+                    </van-cell-group>
                 </div>
             </div>
             <div class="list">
@@ -75,8 +78,9 @@
                     <img :src="aboutMe" width="100%"/>
                 </div>
                 <div class="list-right">
-                    <span>关于我们</span>
-                    <div class="arrow-right">></div>
+                    <van-cell-group>
+                        <van-cell title="关于我们" is-link />
+                    </van-cell-group>
                 </div>
             </div>
         </div>
@@ -87,8 +91,9 @@
                     <img :src="address" width="100%"/>
                 </div>
                 <div class="list-right">
-                    <span>地址管理</span>
-                    <div class="arrow-right">></div>
+                    <van-cell-group>
+                        <van-cell title="地址管理" is-link  to="/addresslist"/>
+                    </van-cell-group>
                 </div>
             </div>
             <div class="list">
@@ -96,8 +101,9 @@
                     <img :src="editPsd" width="100%"/>
                 </div>
                 <div class="list-right">
-                    <span>修改密码</span>
-                    <div class="arrow-right">></div>
+                    <van-cell-group>
+                        <van-cell title="修改密码" is-link />
+                    </van-cell-group>
                 </div>
             </div>
             <div class="list" @click="loginOutClick">
@@ -105,12 +111,21 @@
                     <img :src="loginOut" width="100%"/>
                 </div>
                 <div class="list-right">
-                    <span>退出登录</span>
-                    <div class="arrow-right">></div>
+                    <van-cell-group>
+                        <van-cell title="退出登录" is-link />
+                    </van-cell-group>
                 </div>
             </div>
         </div>
         <Footer></Footer>
+        <van-dialog
+            v-model="dialogShow"
+            show-cancel-button
+            confirm-button-text="呼叫"
+            :before-close="beforeClose"
+        >
+            <p>13660626856</p>
+        </van-dialog>
     </div>
 </template>
 
@@ -130,6 +145,7 @@
                 editPsd: require('./../../assets/images/edit-psd.png'),
                 loginOut: require('./../../assets/images/Login-out.png'),
                 head: require('./../../assets/images/head.png'),
+                dialogShow: false
             }
         },
         mounted(){
@@ -145,6 +161,14 @@
                 }).catch(() => {
 
                 })
+            },
+            beforeClose(action,done){
+                console.log(action,done)
+                if(action === 'confirm'){
+                    setTimeout(done,1000);
+                }else{
+                    done()
+                }
             }
         },
         components: {Footer}
@@ -155,6 +179,7 @@
     .vip{
         font-size: 14px;
         color: #666;
+        margin-bottom: 50px;
     }
     .vip-info {
         height: 5rem;
@@ -217,7 +242,7 @@
         line-height: 3rem;
     }
     .list:active{
-        background: #ddd;
+        background: #e5e5e5;
     }
     .list .list-img{
         display: inline-block;
@@ -231,7 +256,6 @@
     .list .list-right{
         display: inline-block;
         width: 15.5rem;
-        border-bottom: 1px solid #ddd;
     }
     .arrow-right{
         float: right;
